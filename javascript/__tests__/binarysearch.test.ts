@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import binarysearch from "../ts/binarysearch";
+import binarysearch from "../src/binarysearch";
 
 describe("array search module", () => {
   test("binary search success: value found", () => {
