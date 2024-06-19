@@ -1,16 +1,22 @@
 export default function binarysearch(arr: Number[], target: Number): Number {
-  let l = 0;
-  let h = arr.length;
+
+  let lo = 0;
+  let hi = arr.length;
 
   do {
-    let m = Math.floor(l + (h - l) / 2);
-    let num = arr[m];
-    if (num === target) return m;
-    if (target > num) {
-      l = m + 1;
+    let mid = Math.floor(lo + (hi - lo) / 2);
+    let mid_char = arr[mid];
+
+    if (mid_char === target) return mid
+
+    if (mid_char > target) {
+      hi = mid
     } else {
-      h = m;
+      lo = mid + 1
     }
-  } while (l < h);
-  return -1;
+
+
+  } while (lo < hi)
+  return -1
 }
+

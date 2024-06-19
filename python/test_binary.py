@@ -1,17 +1,16 @@
 def binary_search(arr, target):
-    l = 0
-    r = len(arr)
+    lo = 0
+    hi = len(arr)
 
-    while l < r:
-        m = l + (r - l) // 2
-        m_int = arr[m]
-        if m_int == target:
-            return m
-        if target > m_int:
-            l = m + 1
+    while (lo < hi):
+        mid = lo + (hi - lo) // 2
+        mid_char = arr[mid]
+        if mid_char == target:
+            return mid
+        if mid_char > target:
+            hi = mid
         else:
-            target < m_int
-            r = m
+            lo = mid + 1
 
     return -1
 

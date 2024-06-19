@@ -1,17 +1,17 @@
 pub fn binarysearch(vec: Vec<isize>, target: isize) -> isize {
     let mut lo = 0;
-    let mut hi = vec.len() as isize;
+    let mut hi = vec.len();
 
     while lo < hi {
         let mid = lo + (hi - lo) / 2;
-        if vec[mid as usize] == target {
-            return mid;
-        }
 
-        if vec[mid as usize] < target {
-            lo = mid + 1
+        if vec[mid] == target {
+            return mid as isize;
+        }
+        if vec[mid] > target {
+            hi = mid;
         } else {
-            hi = mid
+            lo = mid + 1;
         }
     }
     -1
