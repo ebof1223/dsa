@@ -26,6 +26,7 @@ categories = [
     # ("bit-manipulation", "bit_manipulation_problems")
 ]
 CSV_FILE = 'leetcode_progress.csv'
+
 def load_problems(category, var_name):
     """Load problems from a category file."""
     try:
@@ -47,17 +48,22 @@ def get_problem_by_difficulty(category, var_name):
     if not problems:
         return "No problems available for this category."
 
-    completed_problems = set()
+    attempted_problems = set()
     with open(CSV_FILE, mode='r', newline='') as file:
         reader = csv.reader(file)
         next(reader)  # Skip header
         for row in reader:
-            if row[1] == category and len(row) > 5 and row[-1] == "(D)":
-                completed_problems.add(row[3])  # row[3] is now the problem name
+            if row[1] == category:
+                attempted_problems.add(row[3])  # row[3] is the problem name
 
-    easy_problems = [p for p in problems if p[0] == 1 and p[1] not in completed_problems]
-    medium_problems = [p for p in problems if p[0] == 2 and p[1] not in completed_problems]
-    hard_problems = [p for p in problems if p[0] == 3 and p[1] not in completed_problems]
+    available_problems = [p for p in problems if p[1] not in attempted_problems]
+
+    if not available_problems:
+        return "All problems in this category have been attempted."
+
+    easy_problems = [p for p in available_problems if p[0] == 1]
+    medium_problems = [p for p in available_problems if p[0] == 2]
+    hard_problems = [p for p in available_problems if p[0] == 3]
 
     if easy_problems:
         return random.choice(easy_problems)
@@ -66,7 +72,7 @@ def get_problem_by_difficulty(category, var_name):
     elif hard_problems:
         return random.choice(hard_problems)
     else:
-        return "All problems in this category have been completed."
+        return "No new problems available in this category."
 
 def update_csv(category, problem, is_revisit=False):
     """Update the CSV file with the new problem or revisit information."""
